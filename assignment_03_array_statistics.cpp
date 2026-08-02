@@ -42,3 +42,81 @@
 #include <iostream>
 using namespace std;
 
+
+int calculateTotal(int values[], int size)
+{
+    int total = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        total += values[i];
+    }
+
+    return total;
+}
+
+double calculateMean(int values[], int size)
+{
+    return (double)calculateTotal(values, size) / size;
+}
+
+int findLargest(int values[], int size)
+{
+    int largest = values[0];
+
+    for (int i = 1; i < size; i++)
+    {
+        if (values[i] > largest)
+        {
+            largest = values[i];
+        }
+    }
+
+    return largest;
+}
+
+int findSmallest(int values[], int size)
+{
+    int smallest = values[0];
+
+    for (int i = 1; i < size; i++)
+    {
+        if (values[i] < smallest)
+        {
+            smallest = values[i];
+        }
+    }
+
+    return smallest;
+}
+
+int main()
+{
+    int amount;
+
+    cout << "Enter the number of values: ";
+    cin >> amount;
+
+    if (amount <= 0)
+    {
+        cout << "Invalid input. Number of values must be greater than zero." << endl;
+        return 0;
+    }
+
+    int values[amount];
+
+    for (int i = 0; i < amount; i++)
+    {
+        cout << "Enter value " << i + 1 << ": ";
+        cin >> values[i];
+    }
+
+    cout << endl;
+    cout << "Calculation Results:" << endl;
+    cout << "Total:    " << calculateTotal(values, amount) << endl;
+    cout << "Mean:     " << calculateMean(values, amount) << endl;
+    cout << "Largest:  " << findLargest(values, amount) << endl;
+    cout << "Smallest: " << findSmallest(values, amount) << endl;
+
+    return 0;
+}
