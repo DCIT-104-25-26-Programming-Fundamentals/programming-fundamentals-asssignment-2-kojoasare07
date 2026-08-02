@@ -65,3 +65,184 @@
 #include <string>
 using namespace std;
 
+
+void inputMatrix(int data[10][10], int rows, int columns)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            cout << "Enter value at position [" << i << "][" << j << "]: ";
+            cin >> data[i][j];
+        }
+    }
+}
+
+void displayMatrix(int data[10][10], int rows, int columns)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            cout << setw(5) << data[i][j];
+        }
+        cout << endl;
+    }
+}
+
+void findTranspose(int original[10][10], int rows, int columns, int result[10][10])
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            result[j][i] = original[i][j];
+        }
+    }
+}
+
+void sumMatrices(int first[10][10], int second[10][10], int answer[10][10], int rows, int columns)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            answer[i][j] = first[i][j] + second[i][j];
+        }
+    }
+}
+
+void productMatrices(int first[10][10], int second[10][10], int answer[10][10], int rowsFirst, int columnsFirst, int columnsSecond)
+{
+    for (int i = 0; i < rowsFirst; i++)
+    {
+        for (int j = 0; j < columnsSecond; j++)
+        {
+            answer[i][j] = 0;
+
+            for (int k = 0; k < columnsFirst; k++)
+            {
+                answer[i][j] += first[i][k] * second[k][j];
+            }
+        }
+    }
+}
+
+void transposeOperation()
+{
+    int matrix[10][10], result[10][10];
+    int rows, columns;
+
+    cout << "Enter rows of matrix: ";
+    cin >> rows;
+
+    cout << "Enter columns of matrix: ";
+    cin >> columns;
+
+    inputMatrix(matrix, rows, columns);
+    findTranspose(matrix, rows, columns, result);
+
+    cout << "\nGiven Matrix:" << endl;
+    displayMatrix(matrix, rows, columns);
+
+    cout << "\nTranspose Matrix:" << endl;
+    displayMatrix(result, columns, rows);
+}
+
+void additionOperation()
+{
+    int firstMatrix[10][10], secondMatrix[10][10], result[10][10];
+    int rows, columns;
+
+    cout << "Enter rows of matrices: ";
+    cin >> rows;
+
+    cout << "Enter columns of matrices: ";
+    cin >> columns;
+
+    cout << "\nEnter first matrix values:" << endl;
+    inputMatrix(firstMatrix, rows, columns);
+
+    cout << "\nEnter second matrix values:" << endl;
+    inputMatrix(secondMatrix, rows, columns);
+
+    sumMatrices(firstMatrix, secondMatrix, result, rows, columns);
+
+    cout << "\nFirst Matrix:" << endl;
+    displayMatrix(firstMatrix, rows, columns);
+
+    cout << "\nSecond Matrix:" << endl;
+    displayMatrix(secondMatrix, rows, columns);
+
+    cout << "\nAdded Matrix:" << endl;
+    displayMatrix(result, rows, columns);
+}
+
+void multiplicationOperation()
+{
+    int matrixOne[10][10], matrixTwo[10][10], result[10][10];
+    int rowOne, columnOne, columnTwo;
+
+    cout << "Enter rows of first matrix: ";
+    cin >> rowOne;
+
+    cout << "Enter columns of first matrix: ";
+    cin >> columnOne;
+
+    cout << "\nEnter first matrix values:" << endl;
+    inputMatrix(matrixOne, rowOne, columnOne);
+
+    int rowTwo = columnOne;
+
+    cout << "\nThe second matrix requires " << rowTwo << " rows." << endl;
+    cout << "Enter columns of second matrix: ";
+    cin >> columnTwo;
+
+    cout << "\nEnter second matrix values:" << endl;
+    inputMatrix(matrixTwo, rowTwo, columnTwo);
+
+    productMatrices(matrixOne, matrixTwo, result, rowOne, columnOne, columnTwo);
+
+    cout << "\nFirst Matrix:" << endl;
+    displayMatrix(matrixOne, rowOne, columnOne);
+
+    cout << "\nSecond Matrix:" << endl;
+    displayMatrix(matrixTwo, rowTwo, columnTwo);
+
+    cout << "\nResult of Multiplication:" << endl;
+    displayMatrix(result, rowOne, columnTwo);
+}
+
+int main()
+{
+    int option;
+
+    cout << "MATRIX CALCULATOR" << endl;
+    cout << "1. Find Transpose" << endl;
+    cout << "2. Add Matrices" << endl;
+    cout << "3. Multiply Matrices" << endl;
+    cout << "Select an option: ";
+    cin >> option;
+
+    cout << endl;
+
+    switch(option)
+    {
+        case 1:
+            transposeOperation();
+            break;
+
+        case 2:
+            additionOperation();
+            break;
+
+        case 3:
+            multiplicationOperation();
+            break;
+
+        default:
+            cout << "Wrong option selected." << endl;
+    }
+
+    return 0;
+}
