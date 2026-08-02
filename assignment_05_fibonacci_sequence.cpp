@@ -51,3 +51,78 @@
 #include <iostream>
 using namespace std;
 
+void generateSequence(int count)
+{
+    if (count <= 0)
+    {
+        cout << "Invalid input: enter a number greater than zero." << endl;
+        return;
+    }
+
+    int firstValue = 0;
+    int secondValue = 1;
+
+    cout << "Generated Fibonacci numbers: ";
+
+    for (int index = 0; index < count; index++)
+    {
+        cout << firstValue << " ";
+
+        int sumValue = firstValue + secondValue;
+        firstValue = secondValue;
+        secondValue = sumValue;
+    }
+
+    cout << endl;
+}
+
+bool checkFibonacci(int value)
+{
+    if (value < 0)
+    {
+        return false;
+    }
+
+    int firstValue = 0;
+    int secondValue = 1;
+
+    while (firstValue <= value)
+    {
+        if (firstValue == value)
+        {
+            return true;
+        }
+
+        int sumValue = firstValue + secondValue;
+        firstValue = secondValue;
+        secondValue = sumValue;
+    }
+
+    return false;
+}
+
+int main()
+{
+    int amount;
+
+    cout << "Enter the number of Fibonacci terms: ";
+    cin >> amount;
+
+    generateSequence(amount);
+
+    int checkValue;
+
+    cout << "Enter a value to test: ";
+    cin >> checkValue;
+
+    if (checkFibonacci(checkValue))
+    {
+        cout << checkValue << " belongs to the Fibonacci sequence." << endl;
+    }
+    else
+    {
+        cout << checkValue << " does not belong to the Fibonacci sequence." << endl;
+    }
+
+    return 0;
+}
