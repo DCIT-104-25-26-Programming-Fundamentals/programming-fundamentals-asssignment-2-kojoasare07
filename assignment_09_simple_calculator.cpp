@@ -73,3 +73,90 @@
 #include <cmath>
 using namespace std;
 
+def addition(x, y):
+    return x + y
+
+
+def subtraction(x, y):
+    return x - y
+
+
+def multiplication(x, y):
+    return x * y
+
+
+def division(x, y):
+    if y == 0:
+        return None
+    return round(x / y, 2)
+
+
+def remainder(x, y):
+    if y == 0:
+        return None
+    return x % y
+
+
+def power(x, y):
+    return x ** y
+
+
+def convert_number(value):
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value)
+
+
+def show_options():
+    print('============================')
+    print('       CALCULATOR APP')
+    print('============================')
+    print('1. Add')
+    print('2. Subtract')
+    print('3. Multiply')
+    print('4. Divide')
+    print('5. Find Remainder')
+    print('6. Raise to Power')
+    print('7. Exit')
+
+
+def calculator():
+    choices = {
+        '1': ('+', addition),
+        '2': ('-', subtraction),
+        '3': ('*', multiplication),
+        '4': ('/', division),
+        '5': ('%', remainder),
+        '6': ('**', power)
+    }
+
+    while True:
+        show_options()
+
+        option = input('Choose an option (1-7): ')
+
+        if option == '7':
+            print('Calculator closed.')
+            break
+
+        if option not in choices:
+            print('Invalid selection. Choose a value between 1 and 7.')
+            print()
+            continue
+
+        sign, calculation = choices[option]
+
+        first = float(input('Enter the first value: '))
+        second = float(input('Enter the second value: '))
+
+        answer = calculation(first, second)
+
+        if answer is None:
+            print('Error: Division by zero is not allowed.')
+        else:
+            print(
+                f'Answer: {convert_number(first)} {sign} '
+                f'{convert_number(second)} = {convert_number(answer)}'
+            )
+
+        print()
