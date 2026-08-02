@@ -54,6 +54,70 @@
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
 
+
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
+void printTable(int baseNum)
+{
+    cout << "Multiplication Table for " << baseNum << ":" << endl;
+    for (int factor = 1; factor <= 12; factor++)
+    {
+        cout << baseNum << " x " << setw(2) << factor << " = " << (baseNum * factor) << endl;
+    }
+}
+
+void printTablesUpTo(int maxNum)
+{
+    for (int row = 1; row <= maxNum; row++)
+    {
+        printTable(row);
+        if (row < maxNum)
+        {
+            cout << "---------------------------" << endl;
+        }
+    }
+}
+
+int main()
+{
+    int option;
+
+    cout << "Multiplication Table Generator" << endl;
+    cout << "1. Single Table" << endl;
+    cout << "2. Tables from 1 to N" << endl;
+    cout << "Enter your choice: ";
+    cin >> option;
+    cout << endl;
+
+    if (option == 1)
+    {
+        int baseNum;
+        cout << "Enter a number: ";
+        cin >> baseNum;
+        cout << endl;
+        printTable(baseNum);
+    }
+    else if (option == 2)
+    {
+        int maxNum;
+        cout << "Enter N: ";
+        cin >> maxNum;
+        cout << endl;
+
+        if (maxNum <= 0)
+        {
+            cout << "Error: N must be a positive integer." << endl;
+            return 0;
+        }
+
+        printTablesUpTo(maxNum);
+    }
+    else
+    {
+        cout << "Invalid choice." << endl;
+    }
+
+    return 0;
+}
