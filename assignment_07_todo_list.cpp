@@ -80,3 +80,116 @@
 #include <string>
 using namespace std;
 
+
+void createTask(vector<string> &tasks)
+{
+    cin.ignore();
+
+    string description;
+
+    cout << "Enter a new task: ";
+    getline(cin, description);
+
+    tasks.push_back(description);
+
+    cout << "Added task: \"" << description << "\"" << endl;
+}
+
+void showTasks(const vector<string> &tasks)
+{
+    if (tasks.empty())
+    {
+        cout << "No tasks available." << endl;
+        return;
+    }
+
+    cout << "Current Task List:" << endl;
+
+    for (int i = 0; i < (int)tasks.size(); i++)
+    {
+        cout << i + 1 << ". " << tasks[i] << endl;
+    }
+}
+
+void removeTask(vector<string> &tasks)
+{
+    if (tasks.empty())
+    {
+        cout << "There are no tasks to remove." << endl;
+        return;
+    }
+
+    showTasks(tasks);
+
+    int choice;
+
+    cout << "Select task number to remove: ";
+    cin >> choice;
+
+    if (choice < 1 || choice > (int)tasks.size())
+    {
+        cout << "Invalid task selection." << endl;
+        return;
+    }
+
+    string removed = tasks[choice - 1];
+
+    tasks.erase(tasks.begin() + choice - 1);
+
+    cout << "Removed task: \"" << removed << "\"" << endl;
+}
+
+void displayMenu()
+{
+    cout << "============================" << endl;
+    cout << "       TASK MANAGER" << endl;
+    cout << "============================" << endl;
+    cout << "1. Create Task" << endl;
+    cout << "2. Display Tasks" << endl;
+    cout << "3. Remove Task" << endl;
+    cout << "4. Exit" << endl;
+    cout << "Choose an option (1-4): ";
+}
+
+int main()
+{
+    vector<string> tasks;
+
+    int selection;
+    bool running = true;
+
+    while (running)
+    {
+        displayMenu();
+
+        cin >> selection;
+        cout << endl;
+
+        switch(selection)
+        {
+            case 1:
+                createTask(tasks);
+                break;
+
+            case 2:
+                showTasks(tasks);
+                break;
+
+            case 3:
+                removeTask(tasks);
+                break;
+
+            case 4:
+                cout << "Closing task manager..." << endl;
+                running = false;
+                break;
+
+            default:
+                cout << "Invalid option. Please select 1 to 4." << endl;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}
