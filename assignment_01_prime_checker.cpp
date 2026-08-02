@@ -37,3 +37,39 @@
 #include <iostream>
 using namespace std;
 
+bool is_prime(int number)
+{
+    if (number < 2)
+    {
+        return false;
+    }
+
+    for (int divisor = 2; divisor * divisor <= number; divisor++)
+    {
+        if (number % divisor == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main()
+{
+    int number;
+
+    cout << "Enter a number: ";
+    cin >> number;
+
+    if (is_prime(number))
+    {
+        cout  << " Is a prime number" << endl;
+    }
+    else
+    {
+        cout << " Not a prime" << endl;
+    }
+
+    return 0;
+}
