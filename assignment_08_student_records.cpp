@@ -83,3 +83,173 @@
 #include <iomanip>
 using namespace std;
 
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+struct StudentInfo
+{
+    string studentName;
+    int studentNumber;
+    vector<double> marks;
+};
+
+double findAverage(const vector<double> &marks)
+{
+    double sum = 0;
+
+    for (int i = 0; i < (int)marks.size(); i++)
+    {
+        sum += marks[i];
+    }
+
+    return sum / marks.size();
+}
+
+void registerStudent(vector<StudentInfo> &records)
+{
+    StudentInfo newStudent;
+
+    cin.ignore();
+
+    cout << "Enter student name: ";
+    getline(cin, newStudent.studentName);
+
+    cout << "Enter student number: ";
+    cin >> newStudent.studentNumber;
+
+    int totalMarks;
+    cout << "Enter number of marks: ";
+    cin >> totalMarks;
+
+    for (int i = 0; i < totalMarks; i++)
+    {
+        double scoreValue;
+
+        cout << "Input mark " << i + 1 << ": ";
+        cin >> scoreValue;
+
+        newStudent.marks.push_back(scoreValue);
+    }
+
+    records.push_back(newStudent);
+
+    cout << newStudent.studentName << " has been registered successfully." << endl;
+}
+
+void showStudents(const vector<StudentInfo> &records)
+{
+    if (records.empty())
+    {
+        cout << "Student list is currently empty." << endl;
+        return;
+    }
+
+    cout << fixed << setprecision(2);
+
+    for (int i = 0; i < (int)records.size(); i++)
+    {
+        const StudentInfo &student = records[i];
+
+        cout << "Student Name: " << student.studentName << endl;
+        cout << "Student Number: " << student.studentNumber << endl;
+
+        cout << "Marks: ";
+
+        for (int j = 0; j < (int)student.marks.size(); j++)
+        {
+            cout << student.marks[j];
+
+            if (j != (int)student.marks.size() - 1)
+            {
+                cout << ", ";
+            }
+        }
+
+        cout << endl;
+        cout << "Average Mark: " << findAverage(student.marks) << endl;
+        cout << "============================" << endl;
+    }
+}
+
+void searchAverage(const vector<StudentInfo> &records)
+{
+    int searchId;
+
+    cout << "Enter student number to search: ";
+    cin >> searchId;
+
+    for (int i = 0; i < (int)records.size(); i++)
+    {
+        if (records[i].studentNumber == searchId)
+        {
+            cout << fixed << setprecision(2);
+
+            cout << records[i].studentName 
+                 << "'s average mark is: "
+                 << findAverage(records[i].marks) << endl;
+
+            return;
+        }
+    }
+
+    cout << "Student record not found for number "
+         << searchId << "." << endl;
+}
+
+void displayMenu()
+{
+    cout << "================================" << endl;
+    cout << "      STUDENT MANAGEMENT MENU" << endl;
+    cout << "================================" << endl;
+    cout << "1. Register Student" << endl;
+    cout << "2. View Students" << endl;
+    cout << "3. Find Student Average" << endl;
+    cout << "4. Exit Program" << endl;
+    cout << "Choose an option (1-4): ";
+}
+
+int main()
+{
+    vector<StudentInfo> records;
+
+    int choice;
+    bool running = true;
+
+    while (running)
+    {
+        displayMenu();
+
+        cin >> choice;
+        cout << endl;
+
+        switch(choice)
+        {
+            case 1:
+                registerStudent(records);
+                break;
+
+            case 2:
+                showStudents(records);
+                break;
+
+            case 3:
+                searchAverage(records);
+                break;
+
+            case 4:
+                cout << "Program terminated." << endl;
+                running = false;
+                break;
+
+            default:
+                cout << "Invalid option. Select between 1 and 4." << endl;
+        }
+
+        cout << endl;
+    }
+
+    return 0;
+}
